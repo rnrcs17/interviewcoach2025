@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import { v4 as uuidv4 } from "uuid";
-import PDFParser from "pdf2json";
+const PDFParser = require('pdf2json');
 
 export async function POST(req: NextRequest) {
   const formData: FormData = await req.formData();
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       fileName = uuidv4();
       const tempFilePath = `/tmp/${fileName}.pdf`;
       const fileBuffer = Buffer.from(await uploadedFile.arrayBuffer());
-      await fs.writeFile(tempFilePath, fileBuffer);
+      await fs.writeFile(tempFilePath, new Uint8Array(fileBuffer));
 
       const pdfParser = new (PDFParser as any)(null, 1);
 
