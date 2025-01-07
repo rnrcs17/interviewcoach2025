@@ -61,11 +61,13 @@ export async function middleware(request: NextRequest) {
     if (url.pathname === "/auth") {
       return NextResponse.redirect(new URL("/", request.url));
     }
-  } else {
-    if (protectedPaths.includes(url.pathname)) {
-      return NextResponse.redirect(new URL("/auth?next=" + url.pathname, request.url));
-    }
   }
+
+  // else {
+  //   if (protectedPaths.includes(url.pathname)) {
+  //     return NextResponse.redirect(new URL("/auth?next=" + url.pathname, request.url));
+  //   }
+  // }
   return response;
 }
 
