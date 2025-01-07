@@ -7,11 +7,10 @@ import { CircleCheck } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { cn } from "@/lib/utils";
-import Recorder, { mimeType } from "@/components/test/recorder";
+import UseRecorder, { mimeType } from "@/components/test/recorder";
 import { useFormState } from "react-dom";
 import transcript from "@/lib/actions/transcript";
-import { Microphone } from "@/components/interviewCoach/Microphone";
-//test new imp
+
 const initialState = {
   response: "",
 };
@@ -236,7 +235,7 @@ export default function CoachContent() {
                     {/* hidden fields */}
                     <input type="file" name="audio" hidden ref={fileRef} />
                     <button type="submit" hidden ref={submitButtonRef} />
-                    <Recorder uploadAudio={uploadAudio} />
+                    <UseRecorder uploadAudio={uploadAudio} />
                     <div>{/* voice synth */}</div>
                   </form>
                 </div>

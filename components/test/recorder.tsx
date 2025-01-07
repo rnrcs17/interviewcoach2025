@@ -1,6 +1,6 @@
 "use client";
 import { Mic, MicOff } from "lucide-react";
-import React, { use, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 
 export const mimeType = "audio/webm";
