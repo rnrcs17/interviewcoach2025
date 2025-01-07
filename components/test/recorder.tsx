@@ -1,13 +1,11 @@
 "use client";
-import { cn } from "@/lib/utils";
 import { Mic, MicOff } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export const mimeType = "audio/webm";
 
-function recorder({ uploadAudio }: { uploadAudio: (blob: Blob) => void }) {
+function useRecorder({ uploadAudio }: { uploadAudio: (blob: Blob) => void }) {
   const mediaRecorder = useRef<MediaRecorder | null>(null);
   const { pending } = useFormStatus();
   const [permissioon, setPermission] = useState(false);
@@ -99,4 +97,4 @@ function recorder({ uploadAudio }: { uploadAudio: (blob: Blob) => void }) {
   );
 }
 
-export default recorder;
+export default useRecorder;

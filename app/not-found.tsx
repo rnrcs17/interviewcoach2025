@@ -9,7 +9,7 @@ export default function NotFound() {
       </div>
       <div className="flex justify-center items-center">
         <h1 className="text-xl font-bold mt-10">
-        The page you're looking for could not be found. 
+        The page you&apos;re looking for could not be found. 
         </h1>
       </div>
       <div className="flex items-center justify-center w-full mt-10">
