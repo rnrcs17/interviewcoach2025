@@ -78,6 +78,7 @@ function useRecorder({ uploadAudio }: { uploadAudio: (blob: Blob) => void }) {
           {permissioon && recordingStatus === "inactive" && !pending && (
             <span
               onClick={startRecording}
+              onTouchStart={startRecording}
               className="inline-flex items-center justify-center rounded-full bg-gray-900 px-4 py-4 text-gray-50 transition-colors hover:bg-gray-900/90 focus:outline-none focus:ring-2 focus:ring-gray-950 focus:ring-offset-2 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus:ring-gray-300"
             >
               <MicOff className="h-12 w-10" />
@@ -86,6 +87,7 @@ function useRecorder({ uploadAudio }: { uploadAudio: (blob: Blob) => void }) {
           {recordingStatus === "active" && (
             <span
               onClick={stopRecording}
+              onTouchStart={stopRecording}
               className="inline-flex items-center justify-center rounded-full bg-gray-900 px-4 py-4 text-gray-50 transition-colors hover:bg-gray-900/90 focus:outline-none focus:ring-2 focus:ring-gray-950 focus:ring-offset-2 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus:ring-gray-300"
             >
               <Mic className="h-12 w-10" />
