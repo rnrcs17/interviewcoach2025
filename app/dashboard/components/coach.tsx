@@ -33,6 +33,11 @@ export default function CoachContent() {
   const [state, formAction] = useFormState(transcript, initialState);
   const [message, setMessage] = useState("");
 
+  const [initialPrompt, setInitialPrompt] = useState<
+    { role: string; content: string }[]
+  >([]);
+  const [isInitialPrompt, setIsInitialPrompt] = useState(true);
+
   const handleUploadResponse = (response: any) => {
     setOriginalFileName(JSON.parse(response).originalFileName);
     setResumeTextContent(JSON.parse(response).parsedText);
@@ -53,21 +58,61 @@ export default function CoachContent() {
     return resumeTextContent;
   };
 
+  const getInitialPrompt = (rc: string, jd: string, question: string) => {
+    return [
+      {
+        role: "system",
+        content:
+          "You're being interviewed for the role described below. Act as the candidate. Answer each question naturally, as if speaking in a real interview — concise, confident, and human. Use the provided resume as context. If needed, craft a strong, realistic response that aligns with the resume and job description — avoid clichés or vague answers. Keep responses conversational and under 100 words — aim for 2-5 impactful sentences.",
+      },
+      {
+        role: "user",
+        content: `Your resume Content: ${rc} \nJob Description: ${jd} \nQuestion: ${question}`,
+      },
+    ];
+  };
+
+  function addQuestionToPrompt(
+    initialPrompt: { role: string; content: string }[],
+    newQuestion: any
+  ) {
+    return [
+      ...initialPrompt,
+      {
+        role: "user",
+        content: `Question: ${newQuestion}`,
+      },
+    ];
+  }
+
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const data = {
-        rc: resumeTextContent,
-        jd: jobDescription,
-        question: message,
-      };
-      console.log("data: ", data);
+      // var data = {};
+      if (isInitialPrompt) {
+        setIsInitialPrompt(false);
+        setInitialPrompt(
+          getInitialPrompt(
+            resumeTextContent ?? "",
+            jobDescription ?? "",
+            message
+          )
+        );
+      } else {
+        setInitialPrompt(addQuestionToPrompt(initialPrompt, message));
+      }
+      // data = {
+      //   rc: resumeTextContent,
+      //   jd: jobDescription,
+      //   question: message,
+      // };
+      console.log("data: ", initialPrompt);
       const res = await fetch("/api/chatCompletion", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(initialPrompt),
       });
 
       if (!res.ok) {
