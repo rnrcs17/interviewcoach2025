@@ -136,7 +136,7 @@ export default function CoachContent() {
       const responseData = await res.json();
       console.log("chat completion res: ", responseData);
       setResponse(responseData);
-      addResponseToPrompt(initialPrompt, responseData);
+      await addResponseToPrompt(initialPrompt, responseData);
     } catch (error) {
       console.log(error);
     } finally {
