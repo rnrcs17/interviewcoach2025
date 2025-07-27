@@ -17,7 +17,7 @@ export async function POST(req: Request) {
       messages: [
         {
           role: "system",
-          content: "Imagine you're being interviewed for a job based on the following description. Your resume is also provided. You're the interviewee and will respond naturally, keeping answers brief yet impactful as interviewee would (strictly). Use conversational human English, limiting responses to 50-100 words, but aim for brevity.",
+          content: "You're being interviewed for the role described below. Act as the candidate. Answer each question naturally, as if speaking in a real interview — concise, confident, and human. Use the provided resume as context. If needed, craft a strong, realistic response that aligns with the resume and job description — avoid clichés or vague answers. Keep responses conversational and under 100 words — aim for 2-5 impactful sentences.",
         },
         {
           role: "user",
