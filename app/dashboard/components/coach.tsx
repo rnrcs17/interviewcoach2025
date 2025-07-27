@@ -58,7 +58,7 @@ export default function CoachContent() {
     return resumeTextContent;
   };
 
-  function getInitialPrompt (rc: string, jd: string, question: string) {
+  function getInitialPrompt(rc: string, jd: string, question: string) {
     return [
       {
         role: "system",
@@ -70,7 +70,7 @@ export default function CoachContent() {
         content: `Your resume Content: ${rc} \nJob Description: ${jd} \nQuestion: ${question}`,
       },
     ];
-  };
+  }
 
   function addQuestionToPrompt(
     initialPrompt: { role: string; content: string }[],
@@ -103,25 +103,21 @@ export default function CoachContent() {
     try {
       var data = {};
 
+      let promptToSend;
       if (isInitialPrompt) {
-        setIsInitialPrompt(false);
-        setInitialPrompt(
-          getInitialPrompt(
-            resumeTextContent ?? "",
-            jobDescription ?? "",
-            message
-          )
+        promptToSend = getInitialPrompt(
+          resumeTextContent ?? "",
+          jobDescription ?? "",
+          message
         );
+        setIsInitialPrompt(false);
+        setInitialPrompt(promptToSend);
       } else {
-        setInitialPrompt(addQuestionToPrompt(initialPrompt, message));
+        promptToSend = addQuestionToPrompt(initialPrompt, message);
+        setInitialPrompt(promptToSend);
       }
-      // data = {
-      //   rc: resumeTextContent,
-      //   jd: jobDescription,
-      //   question: message,
-      // };
       data = {
-        prompt: initialPrompt,
+        prompt: promptToSend,
       };
       console.log("data: ", data);
       const res = await fetch("/api/chatCompletion", {
