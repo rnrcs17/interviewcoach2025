@@ -135,15 +135,18 @@ export default function CoachContent() {
       const responseData = await res.json();
       console.log("chat completion res: ", responseData);
       setResponse(responseData);
-      setInitialPrompt(addResponseToPrompt(promptToSend, responseData));
-
+      // Add the assistant's response to the latest prompt
+      const updatedPrompt = addResponseToPrompt(promptToSend, responseData);
+      
       // (length-1)/2 = total questions count
       // only sending the first and recent 4 conversations
-      if (initialPrompt.length >= 11) {
-        const newPrompt = [...initialPrompt];
+      if (updatedPrompt.length >= 11) {
+        const newPrompt = [...updatedPrompt];
         newPrompt.splice(3, 2);
         setInitialPrompt(newPrompt);
         console.log("after splice: ", newPrompt);
+      } else {
+        setInitialPrompt(updatedPrompt);
       }
     } catch (error) {
       console.log(error);
