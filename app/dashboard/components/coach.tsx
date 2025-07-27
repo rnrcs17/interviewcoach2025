@@ -101,7 +101,7 @@ export default function CoachContent() {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      // var data = {};
+      var data = {};
 
       if (isInitialPrompt) {
         setIsInitialPrompt(false);
@@ -120,13 +120,16 @@ export default function CoachContent() {
       //   jd: jobDescription,
       //   question: message,
       // };
-      console.log("data: ", initialPrompt);
+      data = {
+        prompt: initialPrompt,
+      };
+      console.log("data: ", data);
       const res = await fetch("/api/chatCompletion", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(initialPrompt),
+        body: JSON.stringify(data),
       });
 
       if (!res.ok) {

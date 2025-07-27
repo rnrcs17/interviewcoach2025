@@ -10,11 +10,11 @@ const openai = new OpenAI({
 
 export async function POST(req: Request) {
   try {
-    const { initialPrompt } = await req.json();
-    console.log("prompt: ", initialPrompt);
+    const { prompt } = await req.json();
+    console.log("prompt: ", prompt);
     const response = await openai.chat.completions.create({
       model: "gpt-4.1-nano",
-      messages: initialPrompt,
+      messages: prompt,
     });
 
     return NextResponse.json(response.choices[0].message.content);
