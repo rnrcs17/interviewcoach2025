@@ -135,7 +135,7 @@ export default function CoachContent() {
       const responseData = await res.json();
       console.log("chat completion res: ", responseData);
       setResponse(responseData);
-      addResponseToPrompt(initialPrompt, responseData);
+      setInitialPrompt(addResponseToPrompt(initialPrompt, responseData));
 
       // (length-1)/2 = total questions count
       // only sending the first and recent 4 conversations
