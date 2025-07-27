@@ -58,7 +58,7 @@ export default function CoachContent() {
     return resumeTextContent;
   };
 
-  async function getInitialPrompt (rc: string, jd: string, question: string) {
+  function getInitialPrompt (rc: string, jd: string, question: string) {
     return [
       {
         role: "system",
@@ -72,7 +72,7 @@ export default function CoachContent() {
     ];
   };
 
-  async function addQuestionToPrompt(
+  function addQuestionToPrompt(
     initialPrompt: { role: string; content: string }[],
     newQuestion: any
   ) {
@@ -85,7 +85,7 @@ export default function CoachContent() {
     ];
   }
 
-  async function addResponseToPrompt(
+  function addResponseToPrompt(
     initialPrompt: { role: string; content: any }[],
     newResponse: any
   ) {
@@ -106,14 +106,14 @@ export default function CoachContent() {
       if (isInitialPrompt) {
         setIsInitialPrompt(false);
         setInitialPrompt(
-          await getInitialPrompt(
+          getInitialPrompt(
             resumeTextContent ?? "",
             jobDescription ?? "",
             message
           )
         );
       } else {
-        setInitialPrompt(await addQuestionToPrompt(initialPrompt, message));
+        setInitialPrompt(addQuestionToPrompt(initialPrompt, message));
       }
       // data = {
       //   rc: resumeTextContent,
@@ -139,7 +139,7 @@ export default function CoachContent() {
       const responseData = await res.json();
       console.log("chat completion res: ", responseData);
       setResponse(responseData);
-      await addResponseToPrompt(initialPrompt, responseData);
+      addResponseToPrompt(initialPrompt, responseData);
     } catch (error) {
       console.log(error);
     } finally {
