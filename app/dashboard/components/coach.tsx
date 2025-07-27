@@ -58,7 +58,7 @@ export default function CoachContent() {
     return resumeTextContent;
   };
 
-  const getInitialPrompt = (rc: string, jd: string, question: string) => {
+  async function getInitialPrompt (rc: string, jd: string, question: string) {
     return [
       {
         role: "system",
@@ -72,7 +72,7 @@ export default function CoachContent() {
     ];
   };
 
-  function addQuestionToPrompt(
+  async function addQuestionToPrompt(
     initialPrompt: { role: string; content: string }[],
     newQuestion: any
   ) {
@@ -85,7 +85,7 @@ export default function CoachContent() {
     ];
   }
 
-  function addResponseToPrompt(
+  async function addResponseToPrompt(
     initialPrompt: { role: string; content: any }[],
     newResponse: any
   ) {
@@ -102,18 +102,18 @@ export default function CoachContent() {
     setLoading(true);
     try {
       // var data = {};
-      
+
       if (isInitialPrompt) {
         setIsInitialPrompt(false);
         setInitialPrompt(
-          getInitialPrompt(
+          await getInitialPrompt(
             resumeTextContent ?? "",
             jobDescription ?? "",
             message
           )
         );
       } else {
-        setInitialPrompt(addQuestionToPrompt(initialPrompt, message));
+        setInitialPrompt(await addQuestionToPrompt(initialPrompt, message));
       }
       // data = {
       //   rc: resumeTextContent,
