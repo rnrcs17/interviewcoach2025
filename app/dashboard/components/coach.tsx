@@ -136,6 +136,15 @@ export default function CoachContent() {
       console.log("chat completion res: ", responseData);
       setResponse(responseData);
       addResponseToPrompt(initialPrompt, responseData);
+
+      // (length-1)/2 = total questions count
+      // only sending the first and recent 4 conversations
+      if (initialPrompt.length >= 11) {
+        const newPrompt = [...initialPrompt];
+        newPrompt.splice(3, 2);
+        setInitialPrompt(newPrompt);
+        console.log("after splice: ", newPrompt);
+      }
     } catch (error) {
       console.log(error);
     } finally {
