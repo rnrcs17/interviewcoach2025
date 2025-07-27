@@ -102,6 +102,7 @@ export default function CoachContent() {
     setLoading(true);
     try {
       // var data = {};
+      
       if (isInitialPrompt) {
         setIsInitialPrompt(false);
         setInitialPrompt(
