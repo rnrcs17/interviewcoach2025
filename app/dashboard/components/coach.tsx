@@ -85,6 +85,19 @@ export default function CoachContent() {
     ];
   }
 
+  function addResponseToPrompt(
+    initialPrompt: { role: string; content: any }[],
+    newResponse: any
+  ) {
+    return [
+      ...initialPrompt,
+      {
+        role: "assistant",
+        content: newResponse,
+      },
+    ];
+  }
+
   const handleSubmit = async () => {
     setLoading(true);
     try {
@@ -122,6 +135,7 @@ export default function CoachContent() {
       const responseData = await res.json();
       console.log("chat completion res: ", responseData);
       setResponse(responseData);
+      addResponseToPrompt(initialPrompt, responseData);
     } catch (error) {
       console.log(error);
     } finally {
